@@ -1,0 +1,31 @@
+# Ignore Visual Studio and Rider specific files
+.idea/
+.vs/
+bin/
+obj/
+**/node_modules/
+**/dist/
+**/coverage/
+
+# Rider and JetBrains specific
+.idea/
+*.sln.iml
+
+# Logs
+*.log
+*.tlog
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build and publish outputs
+**/bin/
+**/obj/
+**/out/
+
+# NuGet packages
+*.nupkg
+packages/

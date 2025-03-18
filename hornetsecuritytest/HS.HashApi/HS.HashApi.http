@@ -1,0 +1,6 @@
+@HS.HashApi_HostAddress = http://localhost:5113
+
+GET {{HS.HashApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
