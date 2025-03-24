@@ -10,10 +10,13 @@ namespace HS.HashApi.Controllers;
 [Route("[controller]")]
 public class HashesController : ControllerBase
 {
+    private readonly HashGenerationService _hashService = new();
+
     [HttpPost]
-    public IActionResult Post()
+    public IActionResult Post([FromQuery] int count = 40000)
     {
-        return Ok("POST not implemented yet");
+        var hashes = _hashService.GenerateHashes(count);
+        return Ok($"Generated {count} hashes");
     }
 
     [HttpGet]
