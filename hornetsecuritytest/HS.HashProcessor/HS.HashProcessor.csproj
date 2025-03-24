@@ -9,6 +9,9 @@
 
     <ItemGroup>
       <PackageReference Include="Dapper" Version="2.1.66" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.0-preview.2.25163.2" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0-preview.2.25163.2" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.2.25163.2" />
       <PackageReference Include="MySqlConnector" Version="2.4.0" />
       <PackageReference Include="RabbitMQ.Client" Version="7.1.2" />
     </ItemGroup>
@@ -25,5 +28,12 @@
         <HintPath>..\..\..\..\..\.dotnet\shared\Microsoft.AspNetCore.App\8.0.6\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
       </Reference>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Update="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 
 </Project>
