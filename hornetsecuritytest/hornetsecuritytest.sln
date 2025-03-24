@@ -4,7 +4,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.HashApi", "HS.HashApi\HS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.HashProcessor", "HS.HashProcessor\HS.HashProcessor.csproj", "{57DE4814-B82B-4F67-9B29-C7FEE2C4D322}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.Infrastructure", "HS.Infrastructure\HS.Infrastructure.csproj", "{1D9765BB-8DF3-4E94-B74F-352464F25531}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HS.Core", "HS.Core\HS.Core.csproj", "{1D9765BB-8DF3-4E94-B74F-352464F25531}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
