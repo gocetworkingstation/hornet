@@ -1,7 +1,13 @@
+using HS.Core.Components;
+using HS.Core.Interfaces;
+using HS.Core.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer(); // For Swagger
-builder.Services.AddSwaggerGen();           // For Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IHashGenerationService, HashGenerationService>();
+builder.Services.AddScoped<IMessagePublisher, RabbitMqPublisher>();
 
 var app = builder.Build();
 
