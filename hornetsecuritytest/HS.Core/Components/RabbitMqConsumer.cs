@@ -9,6 +9,8 @@ public class RabbitMqConsumer(ConnectionFactory factory) : IMessageConsumer
 {
     private IConnection? _connection;
     private IChannel? _channel;
+    private readonly SemaphoreSlim _semaphore = new(4, 4);
+    private int _activeTasks = 0;
 
     private async Task EnsureInitializedAsync()
     {
@@ -25,15 +27,26 @@ public class RabbitMqConsumer(ConnectionFactory factory) : IMessageConsumer
     {
         await EnsureInitializedAsync();
         Console.WriteLine("Starting to consume from hashQueue...");
+
         if (_channel != null)
         {
             var consumer = new AsyncEventingBasicConsumer(_channel);
             consumer.ReceivedAsync += async (_, ea) =>
             {
-                Console.WriteLine("Message received from queue");
-                var hash = Encoding.UTF8.GetString(ea.Body.ToArray());
-                await processMessage(hash);
-                await _channel.BasicAckAsync(ea.DeliveryTag, false);
+                await _semaphore.WaitAsync();
+                try
+                {
+                    var active = Interlocked.Increment(ref _activeTasks);
+                    Console.WriteLine($"Processing on Thread ID: {Thread.CurrentThread.ManagedThreadId}, Active Tasks: {active}");
+                    var hash = Encoding.UTF8.GetString(ea.Body.ToArray());
+                    await processMessage(hash);
+                    await _channel.BasicAckAsync(ea.DeliveryTag, false);
+                }
+                finally
+                {
+                    Interlocked.Decrement(ref _activeTasks);
+                    _semaphore.Release();
+                }
             };
             await _channel.BasicConsumeAsync("hashQueue", false, consumer);
         }
@@ -45,5 +58,6 @@ public class RabbitMqConsumer(ConnectionFactory factory) : IMessageConsumer
     {
         _channel?.Dispose();
         _connection?.Dispose();
+        _semaphore.Dispose();
     }
 }
