@@ -1,5 +1,6 @@
 using Dapper;
 using HS.Core.Configuration;
+using HS.Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using MySqlConnector;
 
@@ -20,7 +21,11 @@ public class HashesController : ControllerBase
     {
         using var connection = new MySqlConnection(DbConfig.ConnectionString);
         var hashes = connection.Query("SELECT DATE(Date) as Date, COUNT(*) as Count FROM hashes GROUP BY DATE(Date)")
-            .Select(row => new { date = row.Date.ToString("yyyy-MM-dd"), count = (long)row.Count });
+            .Select(row => new HashCountDto 
+            { 
+                Date = row.Date.ToString("yyyy-MM-dd"), 
+                Count = (long)row.Count 
+            });
         return Ok(new { hashes });
     }
 }
