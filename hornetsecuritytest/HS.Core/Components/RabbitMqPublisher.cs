@@ -11,7 +11,7 @@ namespace HS.Core.Components
         {
             var factory = new ConnectionFactory { HostName = "localhost" };
             await using var connection = await factory.CreateConnectionAsync();
-            await using var channel = await connection.CreateChannelAsync(); // Use this
+            await using var channel = await connection.CreateChannelAsync();
             await channel.QueueDeclareAsync(queue: "hashQueue", durable: false, exclusive: false, autoDelete: false);
 
             var stopwatch = Stopwatch.StartNew();
