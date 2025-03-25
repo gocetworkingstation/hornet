@@ -1,12 +1,12 @@
 using HS.Core.Components;
-using HS.Core.Configuration;
 using HS.Core.Data;
 using HS.Core.Interfaces;
 using HS.Core.Repositories;
 using HS.Core.Services;
-using MySqlConnector;
+using RabbitMQ.Client;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSingleton(new ConnectionFactory { HostName = "localhost" });
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

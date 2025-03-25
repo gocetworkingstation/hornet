@@ -13,7 +13,7 @@ public class HashesController(IHashGenerationService hashService, IMessagePublis
     {
         var hashes = hashService.GenerateHashes(count);
         await publisher.PublishHashesAsync(hashes);
-        return Ok($"Generated and published {count} hashes");
+        return Ok(new { HashesGenerated = hashes.Length });
     }
 
     [HttpGet]
